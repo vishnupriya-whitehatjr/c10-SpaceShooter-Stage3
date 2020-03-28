@@ -1,71 +1,82 @@
-var player = createSprite(190, 375,20,20);
-player.setAnimation("Black");
-player.scale=0.3;
+var space = createSprite(200,200,800,800);
+space.setAnimation("space1");
 
-var star=createSprite(340,180,5,5);
-star.shapeColor="white";
-      
-var star2=createSprite(60,130,5,5);
-star2.shapeColor="white";
+var player = createSprite(200,380,5,5);
+player.setAnimation("hero");
 
-var star3=createSprite(125,275,5,5);
-star3.shapeColor="white";
+var enemie1 = createSprite(350,200,50,50);
+enemie1.setAnimation("enemies");
+var enemie2 = createSprite(250,200,0,0);
+enemie2.setAnimation("enemies");
+var enemie3 = createSprite(150,200,0,0);
+enemie3.setAnimation("enemies");
+var enemie4 = createSprite(50,200,0,0);
+enemie4.setAnimation("enemies");
+var enemie5 = createSprite(300,150,0,0);
+enemie5.setAnimation("enemies");
+var enemie6 = createSprite(200,150,0,0);
+enemie6.setAnimation("enemies");
+var enemie7 = createSprite(100,150,0,0);
+enemie7.setAnimation("enemies");
+var enemie8 = createSprite(250,100,0,0);
+enemie8.setAnimation("enemies");
+var enemie9 = createSprite(150,100,0,0);
+enemie9.setAnimation("enemies");
+var enemie10= createSprite(200,50,0,0);
+enemie10.setAnimation("enemies");
 
-var star4 =createSprite(358,75,5,5);
-star4.shapeColor="white";
-
-
+var bullet;
 
 function draw() {
-
-  background("black");
-  createEdgeSprites();
-  spawnEnemies();
+  background("white");
   
-    if(keyWentDown("space"))
-    {
-      
-    var bullets=createSprite(player.x-2,380,3,3);
-    bullets.velocityY=-5;
-    bullets.shapeColor="yellow";
-    
-    var bullets2=createSprite(player.x+2,380,3,3);
-    bullets2.velocityY=-5;
-    bullets2.shapeColor="yellow";
-    
+createEdgeSprites();
+
+   space.velocityY = 2;
+  
+  if (space.y > 500) {
+    space.y = space.height/2;
+  }
+  
+  enemie1.scale = 0.35;
+  enemie2.scale = 0.35;
+  enemie3.scale = 0.35;
+  enemie4.scale = 0.35;
+  enemie5.scale = 0.35;
+  enemie6.scale = 0.35;
+  enemie7.scale = 0.35;
+  enemie8.scale = 0.35;
+  enemie9.scale = 0.35;
+  enemie10.scale = 0.35;
+  
+  player.scale = 0.1;
+  space.scale = 15;
+  
+  if(keyDown("space")){
+      bullet = createSprite(200,370,0,0);
+     bullet.setAnimation("bulletS");
+      bullet.scale=0.05;
+     bullet.x=player.x;
+     bullet.velocityY=-3;
+      console.log(bullet.depth);
+       bullet.depth=player.depth;
+   player.depth = player.depth + 1;
+   
+   if( bullet.isTouching(enemie1)){
+      bullet.destroyEach(); 
+      enemie1.destroyEach();
     }
-
-  player.x=World.mouseX;
-  player.collide(bottomEdge);
-
-             
-drawSprites();
+   
+   }
+   
+   if(keyDown(LEFT_ARROW)){
+    player.x =player.x -4;
+  }  
+  
+  if(keyDown(RIGHT_ARROW)){
+    player.x = player.x+4;
+  }
+  
+  drawSprites();
+  
 }
-
-function spawnEnemies(){
-if(World.frameCount %60===0){
-  var enemy=createSprite(randomNumber(50,350),0,20,20);
-  enemy.velocityY=5/2;
-  enemy.setAnimation("enemy"+randomNumber(1,3));
-  enemy.scale=0.3;
-  enemy.liftime=70;                  
-}
-
-}
-
-code.org link : https://studio.code.org/projects/gamelab/asuRAGFhvbtXWQVic2Jlto6DoodZbAcXEJ-Vqgm74r8
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
